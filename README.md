@@ -1,4 +1,6 @@
 # APCSAImageFilters
+THIS IS NOT YET FINISHED!
+
 <p align="left">
     <a href="https://java.com">
         <img src="https://img.shields.io/badge/made%20with-java-blue" 
