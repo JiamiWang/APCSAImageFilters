@@ -226,15 +226,15 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
   private void setUpNextAndPreviousButtons()
   {
     // create the image icons for the buttons
-    Icon prevIcon = new ImageIcon(DigitalPicture.class.getResource("leftArrow.gif"), 
-                                  "previous index");
-    Icon nextIcon = new ImageIcon(DigitalPicture.class.getResource("rightArrow.gif"), 
-                                  "next index");
-    // create the arrow buttons
-    colPrevButton = new JButton(prevIcon);
-    colNextButton = new JButton(nextIcon);
-    rowPrevButton = new JButton(prevIcon);
-    rowNextButton = new JButton(nextIcon);
+    // Icon prevIcon = new ImageIcon(DigitalPicture.class.getResource("leftArrow.gif"), 
+    //                               "previous index");
+    // Icon nextIcon = new ImageIcon(DigitalPicture.class.getResource("rightArrow.gif"), 
+    //                               "next index");
+    // // create the arrow buttons
+    colPrevButton = new JButton("<");
+    colNextButton = new JButton(">");
+    rowPrevButton = new JButton("<");
+    rowNextButton = new JButton(">");
     
     // set the tool tip text
     colNextButton.setToolTipText("Click to go to the next column value");
@@ -243,16 +243,16 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
     rowPrevButton.setToolTipText("Click to go to the previous row value");
     
     // set the sizes of the buttons
-    int prevWidth = prevIcon.getIconWidth() + 2;
-    int nextWidth = nextIcon.getIconWidth() + 2;
-    int prevHeight = prevIcon.getIconHeight() + 2;
-    int nextHeight = nextIcon.getIconHeight() + 2;
-    Dimension prevDimension = new Dimension(prevWidth,prevHeight);
-    Dimension nextDimension = new Dimension(nextWidth, nextHeight);
-    colPrevButton.setPreferredSize(prevDimension);
-    rowPrevButton.setPreferredSize(prevDimension);
-    colNextButton.setPreferredSize(nextDimension);
-    rowNextButton.setPreferredSize(nextDimension);
+    // int prevWidth = prevIcon.getIconWidth() + 2;
+    // int nextWidth = nextIcon.getIconWidth() + 2;
+    // int prevHeight = prevIcon.getIconHeight() + 2;
+    // int nextHeight = nextIcon.getIconHeight() + 2;
+    // Dimension prevDimension = new Dimension(prevWidth,prevHeight);
+    // Dimension nextDimension = new Dimension(nextWidth, nextHeight);
+    // colPrevButton.setPreferredSize(prevDimension);
+    // rowPrevButton.setPreferredSize(prevDimension);
+    // colNextButton.setPreferredSize(nextDimension);
+    // rowNextButton.setPreferredSize(nextDimension);
     
     // handle previous column button press
     colPrevButton.addActionListener(new ActionListener() {
