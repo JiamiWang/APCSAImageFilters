@@ -110,7 +110,7 @@ public class PictureTester
   }
 
   public static void testCircleBoxBlur(boolean background) {
-      Picture image = new Picture("beach.jpg");
+      Picture image = new Picture("images/beach.jpg");
       image.explore();
       image.boxBlurCircle(image.getWidth() / 2, image.getHeight() / 2, 20, 4, background);
       image.explore();
@@ -149,6 +149,18 @@ public class PictureTester
     // uncomment a call here to run a test
     // and comment out the ones you don't want
     // to run
+    
+    try {
+       String currentPath = new java.io.File(".").getCanonicalPath();
+       System.out.println("Current dir:" + currentPath);
+
+       String currentDir = System.getProperty("user.dir");
+       System.out.println("Current dir using System:" + currentDir);
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+        System.out.println("Modify the code to print full stacktrace");
+    }
+
     testCircleBoxBlur(true);
     //testZeroBlue();
     //testKeepOnlyBlue();
