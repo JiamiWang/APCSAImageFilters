@@ -162,15 +162,21 @@ public class Picture extends SimplePicture
   }
   
   /** Create the box blur effect as a circle. */
-  public void boxBlurCircle(int centerX, int centerY, int radius, int strength, boolean blurBackground) {
+          public void boxBlurCircle(int centerX, int centerY, int startX, int endX, int startY, int endY,
+                                    int radius, int strength, boolean blurBackground) {
     Pixel[][] pixels = this.getPixels2D().clone();
     Pixel[][] curImage = this.getPixels2D();
-    
-    for (int row = 0; curImage.length > row; row++) {
-        for (int col = 0; curImage[0].length > col; col++) {
+
+    startX = Math.max(0, startX);
+    startY = Math.max(0, startY);
+    endX = Math.min(pixels.length, endX);
+    endY = Math.min(pixels[0].length, endY);
+
+    for (int row = startX; endX > row; row++) {
+        for (int col = startY; endY > col; col++) {
             if (blurBackground ? 
-                    (Math.pow(row+centerX, 2) + Math.pow(col+centerY, 2)) > Math.pow(radius, 2) :
-                    (Math.pow(row+centerX, 2) + Math.pow(col+centerY, 2)) < Math.pow(radius, 2))
+                    (Math.pow(row-centerX, 2) + Math.pow(col-centerY, 2)) > Math.pow(radius, 2) :
+                    (Math.pow(row-centerX, 2) + Math.pow(col-centerY, 2)) < Math.pow(radius, 2))
                         boxBlurPixel(row, col, strength, pixels, curImage);
         }
     }

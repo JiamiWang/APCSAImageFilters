@@ -110,10 +110,11 @@ public class PictureTester
   }
 
   public static void testCircleBoxBlur(boolean background) {
-      Picture image = new Picture("images/beach.jpg");
+      Picture image = new Picture("../images/beach.jpg");
       image.explore();
-      // image.boxBlurCircle(image.getWidth() / 2, image.getHeight() / 2, 20, 4, background);
-      // image.explore();
+      image.boxBlurCircle(image.getHeight() / 2, image.getWidth() / 2,
+              -1, -1, -1, -1, 100, 10, background);
+      image.explore();
   }
 
   
