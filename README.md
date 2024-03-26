@@ -11,9 +11,12 @@ Run the `class/PictureTester.java` class to see a complete picture of something!
 
 ## Project information
 The main file is `PictureTester.java`. Please modify the main method there to change the filters you would like to use.
+This project is from a student project template created by professor Barbara Ericson. Thank her for all the work!
+The email is [ericson@cc.gatech.edu](mailto:ericson@cc.gatech.edu)
 
 ## How do I run this?
 * If you are in Replit,  **AND** that you have enough memory, you can simply click on the button and run.
+* (It's more than likely you don't want to pay for Replit premium tho)
 * If using IntelliJ, a run configuration has already been created for you. You can simply press run.
 * If using BlueJ, a run configuration has already been created for you. You can simply press run.
 * **NOTE:** You may need to change the directory path, depending on what you are using to run the project.
@@ -21,8 +24,8 @@ The main file is `PictureTester.java`. Please modify the main method there to ch
 ## Known Issues
 * TODO: At the time of writing starting at the line 226, method setUpPreviousAndNextButtons() when invoked should also 
 be including a gif image for the icons when changing the coordinate in the gui. However, it throws the below 
-exception instead. This is not an urgent issue and does not need to be fixed immediately. (edit 1) It looks like 
-other people do not have this issue after importing the project to replit. Looks like I messed up something when 
+exception  on Replit instead. This is not an urgent issue and does not need to be fixed immediately. (edit 1) It looks 
+like other people do not have this issue after importing the project to replit. Looks like I messed up something when 
 making the commit via Git.
 ```
 Exception in thread "main" java.lang.NullPointerException: Cannot invoke "java.net.URL.toString()" because "url" is null

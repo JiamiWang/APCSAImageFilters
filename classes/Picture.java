@@ -10,8 +10,15 @@ import java.util.List; // resolves problem with java.awt.List and java.util.List
  * A class that represents a picture.  This class inherits from 
  * SimplePicture and allows the student to add functionality to
  * the Picture class.  
- * 
+ *
+ * Modified by student for work submission on 03.25.2024
+ *
  * @author Barbara Ericson ericson@cc.gatech.edu
+ * @author (Co) Jiaming Wang jiamingwang@spicycombo.net
+ * @
+ * @see DigitalPicture
+ * @version 2.1a
+ *
  */
 public class Picture extends SimplePicture 
 {
@@ -43,6 +50,7 @@ public class Picture extends SimplePicture
    * @param height the height of the desired picture
    * @param width the width of the desired picture
    */
+
   public Picture(int height, int width)
   {
     // let the parent class handle this width and height
@@ -84,11 +92,24 @@ public class Picture extends SimplePicture
     return output;
     
   }
-  
+
+  /** Grayscale the picture */
+  public void grayscale() {
+    Pixel[][] pixels = this.getPixels2D();
+
+    for (int r = 0; pixels.length > r; r++) {
+      for (int c = 0; pixels[r].length > c; c++) {
+        Pixel cur = pixels[r][c];
+        int average = (cur.getRed() + cur.getGreen() + cur.getBlue()) / 3;
+        cur.setRed(average); cur.setGreen(average); cur.setBlue(average);
+      }
+    }
+  }
+
   /** Reverse the colors in the picture */
   public void negate() {
     Pixel[][] pixels = this.getPixels2D();
-    
+
     for (int r = 0; pixels.length > r; r++) {
       for (int c = 0; pixels[r].length > c; c++) {
         Pixel cur = pixels[r][c];
@@ -98,20 +119,10 @@ public class Picture extends SimplePicture
       }
     }
   }
-  
-  /** Grayscale the picture... sort of */
-  public void grayscale() {
-    Pixel[][] pixels = this.getPixels2D();
-    
-    for (int r = 0; pixels.length > r; r++) {
-      for (int c = 0; pixels[r].length > c; c++) {
-        Pixel cur = pixels[r][c];
-        int average = (cur.getRed() + cur.getGreen() + cur.getBlue()) / 3;
-        cur.setRed(average); cur.setGreen(average); cur.setBlue(average);
-      }
-    }
-  }
-  
+
+  /**
+   * Mirrors diagonally across the entire image, best if used on a square image!!
+   */
   public void mirrorDiagonal() {
     Pixel[][] pixels = this.getPixels2D();
     
@@ -125,7 +136,10 @@ public class Picture extends SimplePicture
     }
 
   }
-  
+
+  /**
+   * Mirrors the entire image top to bottom
+   */
   public void mirrorHorizontalBottomToTop() {
     Pixel[][] pixels = this.getPixels2D();
     
@@ -138,6 +152,9 @@ public class Picture extends SimplePicture
     }
   }
 
+  /**
+   * Mirrors the whole image horizontally
+   */
   public void mirrorHorizontal() {
     Pixel[][] pixels = this.getPixels2D();
     
@@ -149,7 +166,10 @@ public class Picture extends SimplePicture
       }
     }
   }
-  /** Method to make the image blurry as in box blur */
+
+  /** Method to make the image blurry as in box blur, as for the whole image
+   * @param strength The intensity level of the box blur
+   */
   public void boxBlur(int strength) {
     Pixel[][] pixels = this.getPixels2D().clone();
     Pixel[][] curImage = this.getPixels2D();
@@ -161,8 +181,19 @@ public class Picture extends SimplePicture
     }
   }
   
-  /** Create the box blur effect as a circle. */
-          public void boxBlurCircle(int centerX, int centerY, int startX, int endX, int startY, int endY,
+  /**
+   * Create the box blur effect as a circle.
+   * @param centerX The x coordinate of the center coordinate.
+   * @param centerY The y coordinate of the center coordinate
+   * @param startX The x coordinate where this rectangular blur should start at (useful if blurBackground is set to true)
+   * @param startY The y coordinate where this rectangular blur should start at (useful if blurBackground is set to true)
+   * @param blurBackground Set to true if you want a clear circle with blurred background.
+   * @param endX The x coordinate where this rectangular blur should end at (useful if blurBackground is set to true)
+   * @param endY The y coordinate where this rectangular blur should end at (useful if blurBackground is set to true)
+   * @param radius The radius of the circle to create
+   * @param strength The strength level of the blur.
+   */
+  public void boxBlurCircle(int centerX, int centerY, int startX, int endX, int startY, int endY,
                                     int radius, int strength, boolean blurBackground) {
     Pixel[][] pixels = this.getPixels2D().clone();
     Pixel[][] curImage = this.getPixels2D();
@@ -182,7 +213,14 @@ public class Picture extends SimplePicture
     }
   }
   
-  // Perform box blur on a single pixel
+  /**
+   *  Perform box blur on a single pixel
+   * @param row The row/x coordinate of the pixel
+   * @param col The column/y coordinate of the pixel
+   * @param strength The intensity of the blur
+   * @param pixels The copied, unaffected array containing data of the image
+   * @param curImage The array to affect for the blur
+   */
   public void boxBlurPixel(int row, int col, int strength, Pixel[][] pixels, Pixel[][] curImage) {
     ArrayList<Pixel> surroundingPixels = new ArrayList<Pixel>();
     for (int r_offset = -strength; strength >= r_offset; r_offset++) {
@@ -280,6 +318,7 @@ public class Picture extends SimplePicture
     } 
   }
 
+  /** Method that mirrors the pixels of a image from right to the left */
   public void mirrorVerticalRightToLeft()
   {
     Pixel[][] pixels = this.getPixels2D();
@@ -296,7 +335,38 @@ public class Picture extends SimplePicture
       }
     } 
   }
-  
+
+  /**
+   * Stretch some color further, for continuous solid colors
+   * @param color Color to stretch
+   * @param strength How far to stretch
+   * Precondition: strength > 0
+   */
+  public void stretchPixelHorizontal(Color color, int strength) {
+    if (strength <= 0) return;
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel[][] origCopy = pixels.clone();
+
+      for (int r = 0; pixels.length > r; r++) {
+        for (int c = 0; pixels[r].length > c; c++) {
+          if (origCopy[r][c].getColor().equals(color)) {
+            for (int i = 1; strength >= i; i++) {
+              int left = Math.max(0, r - i);
+              int right = Math.min(pixels[r].length - 1, r + i);
+
+              if (origCopy[left][c].getColor().equals(color)) {
+                pixels[left][c].setColor(color);
+              }
+              if (origCopy[right][c].getColor().equals(color)) {
+                pixels[right][c].setColor(color);
+              }
+            }
+          }
+        }
+      }
+
+  }
+
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -327,9 +397,11 @@ public class Picture extends SimplePicture
     * @param fromPic the picture to copy from
     * @param startRow the start row to copy to
     * @param startCol the start col to copy to
+    * @param ignoreColor Pixel color to ignore
+      when copying over the image
     */
   public void copy(Picture fromPic, 
-                 int startRow, int startCol)
+                 int startRow, int startCol, Color ignoreColor)
   {
     Pixel fromPixel = null;
     Pixel toPixel = null;
@@ -346,6 +418,7 @@ public class Picture extends SimplePicture
            fromCol++, toCol++)
       {
         fromPixel = fromPixels[fromRow][fromCol];
+        if (ignoreColor != null && fromPixel.getColor().equals(ignoreColor)) continue;
         toPixel = toPixels[toRow][toCol];
         toPixel.setColor(fromPixel.getColor());
       }
@@ -357,14 +430,14 @@ public class Picture extends SimplePicture
   {
     Picture flower1 = new Picture("flower1.jpg");
     Picture flower2 = new Picture("flower2.jpg");
-    this.copy(flower1,0,0);
-    this.copy(flower2,100,0);
-    this.copy(flower1,200,0);
+    this.copy(flower1,0,0, null);
+    this.copy(flower2,100,0, null);
+    this.copy(flower1,200,0, null);
     Picture flowerNoBlue = new Picture(flower2);
     flowerNoBlue.zeroBlue();
-    this.copy(flowerNoBlue,300,0);
-    this.copy(flower1,400,0);
-    this.copy(flower2,500,0);
+    this.copy(flowerNoBlue,300,0, null);
+    this.copy(flower1,400,0, null);
+    this.copy(flower2,500,0, null);
     this.mirrorVertical();
     this.write("collage.jpg");
   }
@@ -395,17 +468,14 @@ public class Picture extends SimplePicture
       }
     }
   }
-  
-  
-  /* Main method for testing - each class in Java can have a main 
-   * method 
-   */
-  public static void main(String[] args) 
+
+  public static void main(String[] args)
   {
     Picture beach = new Picture("beach.jpg");
     beach.explore();
     beach.zeroBlue();
     beach.explore();
   }
-  
+
+
 } // this } is the end of class Picture, put all new methods before this

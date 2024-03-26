@@ -1,10 +1,13 @@
+import java.awt.*;
+
 /**
  * This class contains class (static) methods
  * that will help you test the Picture class 
  * methods.  Uncomment the methods and the code
  * in the main to test.
  * 
- * @author Barbara Ericson 
+ * @author Barbara Ericson
+ * @author (Co) Jiaming Wang jiamingwang@spicycombo.net
  */
 public class PictureTester
 {
@@ -138,7 +141,7 @@ public class PictureTester
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
-    Picture swan = new Picture("swan.jpg");
+    Picture swan = new Picture("../images/swan.jpg");
     swan.edgeDetection(10);
     swan.explore();
   }
@@ -162,7 +165,21 @@ public class PictureTester
         System.out.println("Modify the code to print full stacktrace");
     }
 
-    testCircleBoxBlur(true);
+    Picture mainGuiou = new Picture("../images/guiou-square.jpg");
+    Picture edgeGuiou = new Picture("../images/guiou-square.jpg");
+    edgeGuiou.edgeDetection(9);
+    edgeGuiou.stretchPixelHorizontal(Color.BLACK, 25);
+    edgeGuiou.explore();
+
+    mainGuiou.copy(edgeGuiou, 0, 0, Color.WHITE);
+    mainGuiou.explore();
+
+    mainGuiou.boxBlurCircle(559, 998,
+            0, mainGuiou.getWidth() - 1, 0, mainGuiou.getHeight() -1,
+            235, 2, true);
+    mainGuiou.explore();
+
+//    testCircleBoxBlur(true);
     //testZeroBlue();
     //testKeepOnlyBlue();
     //testKeepOnlyRed();
