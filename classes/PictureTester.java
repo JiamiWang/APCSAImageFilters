@@ -166,7 +166,10 @@ public class PictureTester
     }
 
     Picture guiou = new Picture("../images/guiou-square.jpg");
-    guiou.jitterEdges(9, 16, 25);
+    guiou.explore();
+//    guiou.jitterEdges(9, 16, 25);
+    guiou.jitterEdges(9, 25);
+    guiou.explore();
     guiou.explore();
 
 //    testCircleBoxBlur(true);
