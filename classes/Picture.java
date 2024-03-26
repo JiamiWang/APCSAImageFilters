@@ -469,6 +469,33 @@ public class Picture extends SimplePicture
     }
   }
 
+  public void randomJitter(int maximum) {
+    Pixel[][] pixels = this.getPixels2D();
+
+    for (int r = 0; r < pixels.length; r++) {
+      for (int c = 0; c < pixels[r].length; c++) {
+        int right = (int) (Math.random() * maximum);
+        while (c + right >= pixels[r].length) {
+          right = (int) (Math.random() * maximum);
+        }
+        pixels[r][c].setColor(pixels[r][c + right].getColor());
+      }
+    }
+  }
+
+  public void jitterEdges(int edgeStrength, int horizStretch, int jitterMax) {
+    Picture edge = new Picture(this);
+    edge.edgeDetection(edgeStrength);
+    edge.stretchPixelHorizontal(Color.BLACK, horizStretch);
+
+    this.copy(edge, 0, 0, Color.WHITE);
+
+//    this.boxBlurCircle(494, 1008,
+//            0, mainGuiou.getWidth() - 1, 0, mainGuiou.getHeight() -1,
+//            300, 5, false);
+    this.randomJitter(jitterMax);
+  }
+
   public static void main(String[] args)
   {
     Picture beach = new Picture("beach.jpg");
